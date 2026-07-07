@@ -1,30 +1,31 @@
 services:
   app:
-    build: .
-    ports:
+    build: . # Nderto imazhin nga dockerfile
+    ports: # Lidh portin kompjuterit me portin te kontejnerit
+
       - "8080:8080"
-    depends_on:
+    depends_on: # eben qe db ja te jete gati para se te nis appi
       db:
         condition: service_healthy
-    environment:
+    environment:  # Variabla per tu lidh me databaze
       - DATABASE_URL=mysql://root:password@db:3306/mydb
 
   db:
-    image: mysql:8
-    restart: always
-    environment:
+    image: mysql:8 # Perdor imazhin e mysql
+    restart: always # Rinis kontejnerin nese ndalet
+    environment: # Tdhanat per user dhe databaze
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: mydb
-    ports:
-      - "3306:3306"
-    volumes:
+    ports: # Lidh portin kompjuterit me portin e kontejnerit
+      - "3306:3306" 
+    volumes: # Ruan tdhanat e databazes qe mos me humb
       - mysql_data:/var/lib/mysql
-    healthcheck:
+    healthcheck: # Kontrollo nese databaza asht gati per lidhje
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-proot"]
       interval: 10s
       timeout: 5s
       retries: 5
       start_period: 20s
 
-volumes:
+volumes: # Vendi ku ku i run tdhanat e databazes
   mysql_data:

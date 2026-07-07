@@ -21,3 +21,7 @@ app.post('/todos', (req, res) => {
 app.listen(8080, () => {
   console.log('Server running on port 8080');
 });
+
+app.get('/', (req, res) => {
+  res.send('Todo API is running! Try /todos');
+});
