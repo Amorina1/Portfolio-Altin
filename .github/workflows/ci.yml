@@ -1,0 +1,13 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ altin-branch ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -t todo-app 
