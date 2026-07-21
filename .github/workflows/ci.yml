@@ -8,6 +8,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: read
+      packages: write
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -20,10 +24,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build Docker image
-        run: docker build -t ghcr.io/${{ github.repository }}/todo-app:latest .
+        run: docker build -t ghcr.io/amorina1/portfolio-altin/todo-app:latest -f todo-app/Dockerfile .
 
       - name: Push Docker image
-        run: docker push ghcr.io/${{ github.repository }}/todo-app:latest
-
-
-          
+        run: docker push ghcr.io/amorina1/portfolio-altin/todo-app:latest
