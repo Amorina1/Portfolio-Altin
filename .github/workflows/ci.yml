@@ -28,3 +28,4 @@ jobs:
 
       - name: Push Docker image
         run: docker push ghcr.io/amorina1/portfolio-altin/todo-app:latest
+        
