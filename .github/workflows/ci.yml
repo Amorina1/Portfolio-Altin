@@ -39,5 +39,13 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run contract tests
-        run: npm test 
+      - name: Run tests and save logs
+        run: |
+          mkdir -p dist
+          npm test > dist/test-log.txt
+  
+      - name: Upload test logs
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-logs
+          path: dist/test-log.txt
