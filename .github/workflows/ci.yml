@@ -37,10 +37,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install dependencies
-        run: |
-          echo "Vendos komandat e instalimit sipas gjuhës që përdor"
+        run: npm install
 
       - name: Run contract tests
-        run: |
-          npm install
-          npm test
+        run: npm test 
