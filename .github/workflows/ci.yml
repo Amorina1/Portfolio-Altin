@@ -37,13 +37,13 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install dependencies
-        run: npm install
+        run: npm install   # ose komanda që përdor për gjuhën tënde
 
       - name: Run tests and save logs
         run: |
           mkdir -p dist
           npm test > dist/test-log.txt
-  
+
       - name: Upload test logs
         uses: actions/upload-artifact@v4
         with:
