@@ -42,5 +42,5 @@ jobs:
 
       - name: Run contract tests
         run: |
-          echo "Ekzekuto testet e kontratave këtu"
-          ./run-contract-tests.sh
+          npm install
+          npm test
