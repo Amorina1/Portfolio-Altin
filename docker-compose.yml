@@ -1,28 +1,26 @@
-version: "3.8"
+name: Deploy Microservices
 
-services:
-  app:
-    build: .
-    container_name: todo-app
-    ports:
-      - "8080:8080"
-    environment:
-      DB_HOST: db
-      DB_USER: root
-      DB_PASSWORD: root
-      DB_NAME: todoapp
-    depends_on:
-      - db
+on:
+  push:
+    branches:
+      - main
 
-  db:
-    image: mysql:8
-    container_name: todo-db
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: todoapp
-    volumes:
-      - db_data:/var/lib/mysql
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-volumes:
-  db_data:
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: amorina1/todo-app:latest
